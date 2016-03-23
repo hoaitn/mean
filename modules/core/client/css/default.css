@@ -1,0 +1,41 @@
+.relative {
+  position: relative; }
+
+.absolute {
+  position: absolute; }
+
+.text-center {
+  text-align: center; }
+
+a {
+  outline: none;
+  text-decoration: none; }
+  a:focus {
+    outline: none;
+    text-decoration: none; }
+  a:active {
+    outline: none;
+    text-decoration: none; }
+
+*:focus {
+  outline: none; }
+
+*[role="button"] {
+  cursor: pointer; }
+
+.full-height {
+  height: 100%; }
+
+::-webkit-scrollbar {
+  width: 0.5em;
+  height: 0.5em; }
+
+::-webkit-scrollbar-thumb {
+  background: slategray; }
+
+::-webkit-scrollbar-track {
+  background: #b8c0c8; }
+
+body {
+  scrollbar-face-color: slategray;
+  scrollbar-track-color: #b8c0c8; }

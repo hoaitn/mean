@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{data.name}}</h3>
+</div>
+<div class="modal-body">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Mã</th>
+                <th>Size</th>
+                <th>SL</th>
+                <th>Sẵn có</th>
+                <th>TÌnh trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in data.data">
+                <td><span ng-bind="data.name"></span></td>
+                <td><span ng-bind="item.size"></span></td>
+                <td><span ng-bind="item.total"></span></td>
+                <td><span ng-bind="item.available"></span></td>
+                <td>
+                    <span ng-if="item.available" class="label label-primary">Available</span>
+                    <span ng-if="!item.available" class="label label-danger">Not available</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">    
+    <button class="btn btn-default btn-border" ng-click="cancel()">Tắt</button>
+</div>

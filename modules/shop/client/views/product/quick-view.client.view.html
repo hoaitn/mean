@@ -1,0 +1,111 @@
+<md-dialog aria-label="Sản phẩm" ng-cloak layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 ng-bind="data.product.name"></h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()">
+                <md-icon class="material-icons step" aria-label="Close">clear</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab>
+                <md-tab-label>
+                    Sản phẩm
+                </md-tab-label>
+                <md-tab-body>
+                    <md-content layout-padding>
+                        <div layout="row">
+                            <div flex="20">
+                                <span>Tình trạng</span>
+                            </div>
+                            <div>
+                                <span ng-if="data.product.total > data.product.total_sell" class="tag is-primary">Còn hàng</span>
+                                <span ng-if="data.product.total <= data.product.total_sell" class="tag is-danger">Hết hàng</span>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="20">
+                                <span>Tổng số</span>
+                            </div>
+                            <div>
+                                <span ng-bind="data.product.total"></span>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="20">
+                                <span>Còn lại</span>
+                            </div>
+                            <div>
+                                <span ng-bind="data.product.total - data.product.total_sell"></span>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="20">
+                                <span>Mã SP</span>
+                            </div>
+                            <div>
+                                <span ng-bind="data.product.product_code"></span>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="20">
+                                <span>Giá (VNĐ)</span>
+                            </div>
+                            <div>
+                                <span ng-bind="data.product.priceSell | shopCurrency"></span>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="20">
+                                <span>Ảnh</span>
+                            </div>
+                            <div>
+                                <img ng-src="{{data.product.image}}" />
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab-body>
+            </md-tab>
+            <md-tab>
+                <md-tab-label>
+                    Sản phẩm cùng mã
+                </md-tab-label>
+                <md-tab-body>
+                    <md-table-container>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column>Ảnh</th>
+                                    <th md-column>Tên SP</th>
+                                    <th md-column>Mã</th>
+                                    <th md-column>Size</th>
+                                    <th md-column>Giá (VNĐ)</th>
+                                    <th md-column>SL</th>
+                                    <th md-column>Còn lại</th>
+                                    <th md-column>Tình trạng</th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row ng-repeat="item in data.data">
+                                    <td md-cell><img class="small-thumb" ng-src="{{item.image}}"/></td>
+                                    <td md-cell><span ng-bind="item.name"></span></td>
+                                    <td md-cell><span ng-bind="item.product_code"></span></td>
+                                    <td md-cell><span ng-bind="item.size"></span></td>
+                                    <td md-cell><span ng-bind="item.priceSell | currency:'':'0'"></span></td>
+                                    <td md-cell><span ng-bind="item.total"></span></td>
+                                    <td md-cell><span ng-bind="item.total-item.total_sell"></span></td>
+                                    <td md-cell>
+                                        <span ng-if="item.total > item.total_sell" class="tag is-primary">Còn hàng</span>
+                                        <span ng-if="item.total <= item.total_sell" class="tag is-danger">Hết hàng</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                </md-tab-body>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</md-dialog>

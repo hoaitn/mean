@@ -1,0 +1,37 @@
+<div class="pageheader">
+    <div ncy-breadcrumb></div>        
+</div>
+<div class="pagecontent">
+    <form name="categoryForm" ng-submit="vm.save()" autocomplete="off" novalidate>
+        <div class="row">
+            <div class="col-md-6">
+                <section class="tile">
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1>Thông tin dòng sản phẩm</h1>
+                    </div>
+                    <!-- /tile header -->
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="form-group">
+                            <label>Dòng sản phẩm</label>
+                            <input type="text" name="name" class="form-control" ng-model="vm.category.name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>SEO URL: </label>
+                            <input type="text" name="slug" class="form-control" ng-model="vm.category.slug">
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+                    <!-- tile footer -->
+                    <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                        <!-- SUBMIT BUTTON -->
+                        <a ui-sref="shop.category.create" class="btn btn-info"><i class="fa fa-plus"></i> Tạo mới</a>
+                        <button type="submit" class="btn btn-success" ng-disabled="categoryForm.$invalid">Lưu</button>
+                    </div>
+                    <!-- /tile footer -->
+                </section>
+            </div>
+        </div>
+    </form>
+</div>

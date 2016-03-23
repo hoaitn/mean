@@ -1,0 +1,36 @@
+<section>
+    <div class="page-header">
+        <h1>User <span ng-bind="user.username"></span></h1>
+    </div>
+    <div class="col-md-12">
+        <form name="userForm" ng-submit="update(userForm.$valid)" novalidate>
+            <md-input-container>
+                <label>Username</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" ng-model="user.firstName" required />
+                <div ng-messages="userForm.firstName.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">First name is required.</p>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" ng-model="user.lastName" required />
+                <div ng-messages="userForm.lastName.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Last name is required.</p>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label class="control-label" for="roles">Roles</label>
+                <input class="form-control" type="text" name="roles" ng-model="user.roles" id="roles" ng-list required />
+                <div ng-messages="userForm.roles.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">At least one role is required.</p>
+                </div>
+            </md-input-container>
+            <div class="form-group">
+                <md-button type="submit" class="md-raised md-primary">Update</md-button>
+            </div>
+            <div ng-show="error" class="text-danger">
+                <strong ng-bind="error"></strong>
+            </div>
+        </form>
+    </div>
+</section>

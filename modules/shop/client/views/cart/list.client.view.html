@@ -1,0 +1,109 @@
+<div class="page page-products" ui-view>
+    <!-- page header -->
+    <div class="pageheader">
+        <div ncy-breadcrumb></div>        
+    </div>
+    <!-- /page header -->
+    <!-- page content -->
+    <div class="pagecontent">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+                <!-- tile -->
+                <section class="tile">
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1><strong>Đơn hàng</strong></h1>
+                        <ul class="controls">           
+                            <li><a role="button" ng-click="vm.reloadData()"><i class="fa fa-refresh"></i></a></li>
+                            <li><a ui-sref="shop.cart.create"><i class="fa fa-plus mr-5"></i> Tạo đơn</a></li>                 
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                                <a href class="dropdown-toggle" uib-dropdown-toggle>Tools <i class="fa fa-angle-down ml-5"></i></a>
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href>Export to XLS</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to CSV</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to XML</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li>
+                                        <a href>Print Invoices</a>
+                                    </li>
+                                </ul>
+                            </li>
+                                                    
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="table-responsive-wide">
+                            <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40px;">
+                                            <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                                <input type="checkbox" ng-model="vm.selectedAll" ng-click="vm.selectAll()"><i></i>
+                                            </label>
+                                        </th>
+                                        <th>Tên KH</th>
+                                        <th style="min-width: 100px">ĐC</th>
+                                        <th style="min-width: 100px">ĐT</th>
+                                        <th>Ngày tạo</th>
+                                        <th>Người tạo</th>                                        
+                                        <th>Shipper</th>                                        
+                                        <th>Tổng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>                                        
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.invoices">
+                                        <td>
+                                            <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                            <input type="checkbox" ng-model="item.selected"><i></i></label>
+                                        </td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.address }}</td>
+                                        <td>{{ item.phone }}</td>
+                                        <td>{{ item.createdAt | date : 'dd/MM/yy H:mm:ss' }}</td>
+                                        <td>{{ item.createdBy.displayName }}</td>                                        
+                                        <td>{{ item.shipper.name }}</td>                                        
+                                        <td>{{ item.totalPrice | shopCurrency }}</td>                                        
+                                        <td>
+                                            <span tooltip-placement="top" uib-tooltip="Xác nhận hàng" class="btn btn-primary btn-sm" ng-click="vm.done(item)"><i class="fa fa-check"></i></span>
+                                            <a class="btn btn-info btn-sm" ui-sref="shop.cart.edit({cartId: item._id})"><i class="fa fa-pencil"></i></a>
+                                            <span tooltip-placement="top" uib-tooltip="Xóa đơn hàng" class="btn btn-danger btn-sm" ng-click="vm.remove(item)"><i class="fa fa-trash"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>

@@ -1,0 +1,295 @@
+<div class="add-nav" ui-view>
+    <div class="nav-heading">
+        <h3>Tạo hóa đơn</h3>
+        <span class="controls pull-right">
+            <a ui-sref="shop.order.view({orderId: vm.order._id})" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" uib-tooltip="Back"><i class="fa fa-arrow-left"></i></a>
+        </span>
+    </div>
+    <uib-tabset>
+        <uib-tab heading="Details">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-md-12">
+                    <!-- tile -->
+                    <section class="tile time-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <!-- row -->
+                            <div class="row">
+                                <!-- col -->
+                                <div class="col-md-9">
+                                    <p class="text-default lt">Thông tin hóa đơn</p>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-md-3">
+                                    <p class="text-uppercase text-strong mb-10">Customer</p>
+                                    <ul class="list-unstyled text-default lt mb-20">
+                                        <li><strong class="inline-block w-xs">Name:</strong> {{ vm.order.member.name }}</li>
+                                        <li><strong class="inline-block w-xs">State:</strong> Ukraine</li>
+                                        <li><strong class="inline-block w-xs">Phone:</strong> {{ vm.order.phone }}</li>
+                                        <li><strong class="inline-block w-xs">Email:</strong> <a href="mailto:{{ vm.order.member.email }}">{{ vm.order.member.email }}</a></li>
+                                    </ul>
+                                </div>
+                                <!-- /col -->
+                            </div>
+                            <!-- /row -->
+                            <!-- row -->
+                            <div class="row b-t pt-20">
+                                <!-- col -->
+                                <div class="col-md-3 b-r">
+                                    <p class="text-uppercase text-strong mb-10">Order Details</p>
+                                    <ul class="list-unstyled text-default lt mb-20">
+                                        <li><strong>ID:</strong> <a href="javascript:;">35651</a></li>
+                                        <li>January 29, 2015 at 16:58</li>
+                                        <li>John Douey</li>
+                                        <li>Ukraine</li>
+                                    </ul>
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-md-6 b-r">
+                                    <p class="text-uppercase text-strong mb-10 ">
+                                        Address
+                                        <a href="javascript:;" class="btn btn-default btn-rounded-20 btn-xs pull-right"><i class="fa fa-pencil"></i></a>
+                                    </p>
+                                    <!-- col -->
+                                    <div class="col-md-6">
+                                        {{ vm.order.address }}
+                                    </div>
+                                    <!-- /col -->
+                                    <!-- col -->
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled text-default lt mb-20">
+                                            <li>lego.bin@gmail.com</li>
+                                            <li>655 169 4599</li>
+                                        </ul>
+                                    </div>
+                                    <!-- /col -->
+                                </div>
+                                <!-- /col -->
+                                <!-- col -->
+                                <div class="col-md-3">
+                                    <p class="text-uppercase text-strong mb-10 ">Delivery & Payment</p>
+                                    <ul class="list-unstyled text-default lt mb-20">
+                                        <li><strong>Delivery:</strong> Pick-Up</li>
+                                        <li><strong>Payment:</strong> Cash</li>
+                                    </ul>
+                                </div>
+                                <!-- /col -->
+                            </div>
+                            <!-- /row -->
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Product CODE</th>                                            
+                                            <th>Status</th>
+                                            <th>Price</th>
+                                            <th style="width: 150px">Quantity</th>
+                                            <th>Size</th>
+                                            <th>Discount %</th>
+                                            <th>Discount Amount</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in vm.products">
+                                            <td><span role="button" class="label label-info">{{ item.product.product.code }}</span></td>                                            
+                                            <td>                                                
+                                                <span ng-if="item.product.available" class="label label-success">Available</span>
+                                                <span ng-if="!item.product.available" class="label label-danger">Not available</span>                                                
+                                            </td>
+                                            <td>{{ item.product.product.priceSell | shopCurrency }}</td>
+                                            <td>                                                
+                                                <input ui-jq="TouchSpin" ng-model="item.quantity" type="text" class="form-control" data-min='1' data-max="{{item.product.available}}" data-step="1">
+                                            </td>
+                                            <td>{{ item.product.size }}</td>
+                                            <td>{{ item.discount }}%</td>
+                                            <td>{{ (item.product.product.priceSell * item.quantity * item.discount / 100) | shopCurrency }}</td>
+                                            <td>{{ (item.product.product.priceSell * item.quantity) - ((item.product.product.priceSell * item.quantity * item.discount / 100)) | shopCurrency }}</td>
+                                            <td>
+                                                <span role="button" ng-click="vm.removeProduct(item)" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></span>
+                                            </td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- /row -->
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-md-8">
+                    <span role="button" ng-click="vm.makeInvoice()" class="btn btn-primary">Lưu hóa đơn</span>
+                </div>
+                <div class="col-md-4 price-total">
+                    <!-- tile -->
+                    <section class="tile tile-simple bg-tr-black lter">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <ul class="list-unstyled">
+                                <li><strong class="inline-block w-sm mb-5">Subtotal:</strong> {{ vm.totalPrice() | shopCurrency}}</li>
+                                <li><strong class="inline-block w-sm mb-5">Shipping:</strong> {{ vm.order.priceShip | shopCurrency }}</li>
+                                <li><strong class="inline-block w-sm mb-5">Discount Total:</strong> {{ vm.totalDiscount() | shopCurrency}}</li>
+                                <li><strong class="inline-block w-sm mb-5">Total Paid:</strong> {{vm.order.totalPaid | shopCurrency}}</li>
+                                <li><strong class="inline-block w-sm mb-5">Total Refunded:</strong> {{vm.order.totalRefunded | shopCurrency}}</li>
+                                <li>
+                                    <strong class="inline-block w-sm">Total Due:</strong>
+                                    <h3 class="inline-block text-success">{{ (vm.totalPrice() - vm.totalDiscount()) | shopCurrency }}</h3>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- /row -->
+        </uib-tab>
+        <uib-tab heading="Notes">
+            <!-- row -->
+            <div class="row">
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <header class="mb-20">
+                                <span class="text-sm text-default lt">Created at: 26 Jan, 2015</span>
+                                <span class="pull-right text-sm text-default lt">ID: 266946</span>
+                            </header>
+                            <h4 class="mt-10">This is Note</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <header class="mb-20">
+                                <span class="text-sm text-default lt">Created at: 26 Jan, 2015</span>
+                                <span class="pull-right text-sm text-default lt">ID: 266946</span>
+                            </header>
+                            <h4 class="mt-10">This is Note</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <header class="mb-20">
+                                <span class="text-sm text-default lt">Created at: 26 Jan, 2015</span>
+                                <span class="pull-right text-sm text-default lt">ID: 266946</span>
+                            </header>
+                            <h4 class="mt-10">This is Note</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <header class="mb-20">
+                                <span class="text-sm text-default lt">Created at: 26 Jan, 2015</span>
+                                <span class="pull-right text-sm text-default lt">ID: 266946</span>
+                            </header>
+                            <h4 class="mt-10">This is Note</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <header class="mb-20">
+                                <span class="text-sm text-default lt">Created at: 26 Jan, 2015</span>
+                                <span class="pull-right text-sm text-default lt">ID: 266946</span>
+                            </header>
+                            <h4 class="mt-10">This is Note</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple">
+                        <!-- tile body -->
+                        <div class="tile-body">
+                            <header class="mb-20">
+                                <span class="text-sm text-default lt">Created at: 26 Jan, 2015</span>
+                                <span class="pull-right text-sm text-default lt">ID: 266946</span>
+                            </header>
+                            <h4 class="mt-10">This is Note</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+                <!-- col -->
+                <div class="col-md-3">
+                    <!-- tile -->
+                    <section class="tile tile-simple no-bg">
+                        <!-- tile body -->
+                        <div class="tile-body p-0">
+                            <a href="javascript:;" class="tile-button bg-white"><i class="fa fa-plus"></i> Add Note</a>
+                        </div>
+                        <!-- /tile body -->
+                    </section>
+                    <!-- /tile -->
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- /row -->
+        </uib-tab>
+    </uib-tabset>
+</div>

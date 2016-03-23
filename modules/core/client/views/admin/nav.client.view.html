@@ -1,0 +1,31 @@
+<div id="sidebar-wrap">
+    <uib-accordion close-others="oneAtTime" slimscroll="{height: '100%'}">
+        <uib-accordion-group is-open="status.isFirstOpen" class="{{vm.customClass()}}">
+            <uib-accordion-heading>
+                Navigation 
+                <i class="pull-right fa" ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i>
+            </uib-accordion-heading>
+            <ul nav-collapse id="navigation" ripple>
+                <li ui-sref-active="active" ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);"
+                    ng-switch="item.type" ng-class="{ 'open': $state.includes(item.state), 'dropdown': item.type === 'dropdown' }">
+                    <a ng-switch-when="dropdown">
+                        <fa name="{{item.icon}}"></fa> 
+                        <span translate>{{item.title}}</span>
+                    </a>  
+                    <ul ng-switch-when="dropdown">
+                        <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(vm.authentication.user);" ui-sref-active="active">
+                            <a ui-sref="{{subitem.state}}">
+                                <fa name="{{subitem.icon}}"></fa> 
+                                <span translate>{{subitem.title}}</span>
+                            </a>
+                        </li>
+                    </ul>                  
+                    <a ng-switch-default ui-sref="{{item.state}}">
+                        <fa name="{{item.icon}}"></fa> 
+                        <span translate>{{item.title}}</span>
+                    </a>
+                </li>                            
+            </ul>
+        </uib-accordion-group>        
+    </uib-accordion>
+</div>

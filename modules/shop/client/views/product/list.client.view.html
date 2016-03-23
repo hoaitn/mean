@@ -1,0 +1,129 @@
+<div class="page page-products">
+    <!-- page header -->
+    <div class="pageheader">
+        <div ncy-breadcrumb></div>        
+    </div>
+    <!-- /page header -->
+    <!-- page content -->
+    <div class="pagecontent" ui-view>
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen01">
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1>{{'label.product_list' | translate}}</h1>
+                        <ul class="controls">
+                            <li><a role="button" ng-click="vm.reloadData()"><i class="fa fa-refresh"></i></a></li>
+                            <li><a ui-sref="shop.product.create"><i class="fa fa-plus mr-5"></i> Thêm sản phẩm</a></li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                                <a href class="dropdown-toggle" uib-dropdown-toggle>Tools <i class="fa fa-angle-down ml-5"></i></a>
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href>Export to XLS</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to CSV</a>
+                                    </li>
+                                    <li>
+                                        <a href>Export to XML</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li>
+                                        <a href>Print Invoices</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                                <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                    <li>
+                                        <a href tile-control-toggle>
+                                            <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-refresh ng-click="reloadData()">
+                                            <fa name="refresh"></fa> Refresh
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                            <fa name="expand"></fa> Fullscreen
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /tile header -->
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="table-responsive-wide">
+                            <table datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="table table-striped table-hover table-custom" style="min-width: 1000px;">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40px;">
+                                            <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                                <input type="checkbox" ng-model="vm.selectedAll" ng-click="vm.selectAll()"><i></i>
+                                            </label>
+                                        </th>
+                                        <th style="width:90px;">Mã SP</th>
+                                        <th>Tên SP</th>
+                                        <th>Loại SP</th>
+                                        <th style="width:100px;">Giá nhập</th>
+                                        <th style="width:100px;">Giá bán</th>
+                                        <th style="width:90px;">Status</th>
+                                        <th style="width:150px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th>Mã</th>
+                                        <th>Tên</th>
+                                        <th>Loại SP</th>
+                                        <th>Giá</th>
+                                        <th>Giá</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    <tr ng-repeat="product in vm.products">
+                                        <td>
+                                            <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                            <input type="checkbox" ng-model="product.selected"><i></i></label>
+                                        </td>
+                                        <td>{{ product.code }}</td>
+                                        <td>{{ product.name }}</td>
+                                        <td>{{ product.category.name }}</td>
+                                        <td>{{ product.price | shopCurrency}}</td>
+                                        <td>{{ product.priceSell | shopCurrency}}</td>
+                                        <td>
+                                            <span class="label label-primary" ng-if="product.hasNew">New</span>
+                                            <span class="label label-info" ng-if="product.discount">-{{product.discount}}%</span>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" ui-sref="shop.product.edit({productId: product._id})"><fa name="pencil"></fa></a>
+                                            <a class="btn btn-sm btn-primary" ui-sref="shop.product.edit({productId: product._id, tab: 1})"><fa name="plus"></fa></a>
+                                            <span class="btn btn-sm btn-default" ng-click="vm.openSplash(product, $event)" data-options="splash-2 splash-greensea splash-ef-13"><i class="fa fa-eye"></i></span>  
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /tile body -->
+                </section>
+                <!-- /tile -->
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>

@@ -1,0 +1,31 @@
+{
+    "menu": {
+        "dashboard": "Dashboard",
+        "statistics": "Thống kê",
+        "sell_history": "Lịch sử bán",
+        "manager_user": "Quản lý thành viên",
+        "product": "Sản phẩm",
+        "category": "Loại sản phẩm",
+        "shipper": "Người vận chuyển",
+        "invoice": "Hóa đơn",
+        "manager": "Quản trị viên",
+        "order": "Đơn hàng",
+        "orders": "Đơn đặt hàng"
+    },
+    "label": {
+        "product_list": "Danh sách sản phẩm",
+        "color": "Màu",
+        "price": "Giá",
+        "total": "Tổng",
+        "old_price": "Giá cũ",
+        "new_price": "Giá mới",
+        "order": "Đơn hàng",
+        "create": "Tạo mới",
+        "delete": "Xóa",
+        "update": "Cập nhật",
+        "edit": "Sửa",
+        "position": "Vị trí",
+        "save": "Lưu",
+        "layout": "Giao diện"
+    }
+}

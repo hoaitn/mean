@@ -1,0 +1,140 @@
+<div class="pageheader">
+    <div ncy-breadcrumb></div>
+</div>
+<div class="pagecontent">
+    <form name="myForm" ng-submit="vm.save()" autocomplete="off" novalidate>
+        <section class="tile">
+            <!-- tile header -->
+            <div class="tile-header dvd dvd-btm">
+                <h1>Thông tin đơn hàng</h1>
+            </div>
+            <!-- /tile header -->
+            <!-- tile body -->
+            <div class="tile-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Tên khách hàng</label>
+                        <input type="text" name="name" class="form-control" ng-model="vm.invoice.customerName" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Địa chỉ: </label>
+                        <input type="text" name="address" class="form-control" ng-model="vm.invoice.address">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Điện thoại</label>
+                        <input type="text" name="phone" class="form-control" ng-model="vm.invoice.phone">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Phí ship (nếu có) </label>
+                        <input type="text" name="address" class="form-control" ng-model="vm.invoice.shipMoney">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Chiết khấu (nếu có) </label>
+                        <input type="text" name="discount" class="form-control" ng-model="vm.invoice.discount">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Trạng thái </label>            
+
+                        <select data-placeholder="Trạng thái đơn hàng" name="status" chosen class="form-control" ng-model="vm.invoice.status">
+                            <option value="1">Chờ xử lý</option>
+                            <option value="2">Trả lại</option>
+                            <option value="3">Hoàn thành</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Mã giảm giá (nếu có) </label>
+                        <input type="text" name="coupons" class="form-control" ng-model="vm.invoice.coupons">
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Kiểu đơn hàng </label>
+                        <select data-placeholder="Chọn kiểu đơn hàng" chosen ng-model="vm.invoice.sellType" class="form-control">
+                            <option value="1">Website</option>
+                            <option value="2">Offline</option>
+                            <option value="3">Other</option>
+                            <option value="4">Facebook</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-3 col-md-3">
+                        <label>Shipper </label>                        
+                        <select chosen ng-model="vm.invoice.shipper" data-placeholder="Chọn shipper" ng-options="s.name for s in vm.listShipper track by s._id" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- /tile body -->
+            <!-- tile footer -->
+            <div class="tile-header dvd dvd-btm">
+                <h1>Sản phẩm</h1>
+            </div>
+            <!-- /tile header -->
+            <!-- tile body -->
+            <div class="tile-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <input type="text" placeholder="Nhập mã sản phẩm" ng-trim ng-model="vm.product_code" class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" ng-click="vm.searchProduct()" type="button">Tìm kiếm</button>
+                            </span>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6" ng-repeat="item in vm.listFilter.products">
+                                <section class="tile">
+                                    <div class="tile-header bg-slategray dvd dvd-btm">
+                                        <h1>{{vm.listFilter.code}}</h1>
+                                        <ul class="controls">
+                                            <li><a role="button" ng-click="vm.addToCart(item)"><i class="fa fa-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tile-body">
+                                        <img ng-src="{{item.image}}">
+                                        <span>Size: {{item.size}}</span>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Mã</th>
+                                    <th>Size</th>
+                                    <th style="width: 120px">SL</th>
+                                    <th>Giá</th>
+                                    <th><i class="fa fa-cog"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.invoice.products">
+                                    <td></td>
+                                    <td>{{item.product.product.code}}</td>
+                                    <td>{{item.product.size}}</td>
+                                    <td>
+                                        <input ui-jq="TouchSpin" ng-model="item.quantity" type="text" class="form-control" data-min='0' data-max="{{item.product.total}}" data-step="1" data-decimals="0">
+                                    </td>
+                                    <td>{{item.product.product.priceSell | shopCurrency}}</td>
+                                    <td>
+                                        <button ng-click="vm.removeItem(item)" class="btn btn-danger" type="button"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tile-footer text-right bg-tr-black lter dvd dvd-top">
+                <!-- SUBMIT BUTTON -->
+                <a ui-sref="shop.cart.create" class="btn btn-info"><i class="fa fa-plus"></i> Tạo mới</a>
+                <button type="submit" class="btn btn-success" ng-disabled="myForm.$invalid">Lưu</button>
+            </div>
+            <!-- /tile footer -->
+        </section>
+    </form>
+</div>

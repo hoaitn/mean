@@ -1,0 +1,32 @@
+{
+    "menu": {
+        "dashboard": "Dashboard",
+        "statistics": "Statistics",
+        "sell_history": "Sell history",
+        "manager_user": "Manager user",
+        "product": "Product",
+        "category": "Category",
+        "shipper": "Shipper",
+        "invoice": "Invoice",
+        "manager": "Manager",
+        "order": "Order",
+        "orders": "Orders"
+    },
+    "label": {
+        "product_list": "Product list",
+        "color": "Color",
+        "price": "Price",
+        "total": "Total",
+        "old_price": "Old price",
+        "new_price": "New price",
+        "order": "Order",
+        "create": "Create",
+        "delete": "Delete",
+        "update": "Update",
+        "edit": "Edit",
+        "position": "Position",
+        "save": "Save",
+        "layout": "Layout"
+
+    }
+}
